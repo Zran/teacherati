@@ -1,1 +1,1 @@
-![Scale PHP](http://1drv.ms/1NHhkl6)
+![Scale PHP](http://www.bradwhitfield.com/img/scale.png)
