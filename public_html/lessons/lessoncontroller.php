@@ -81,6 +81,12 @@ class LessonController {
         $db->close();
     }
 
+    public static function delete_lesson($lesson_id) {
+        //Prepare the statement so we can bind data to it
+        $sql = "DELETE FROM lessons WHERE id=?;";
+        SQLAction::delete_by_id_query($sql, $lesson_id);
+    }
+
     public static function get_array_of_lessons($db, $statement) {
         $statement->bind_result($id, $title, $subject, $description, $date_created, $persons_id, $search_field);
 
