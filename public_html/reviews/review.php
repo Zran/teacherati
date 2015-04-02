@@ -10,7 +10,6 @@ include_once("../persons/personcontroller.php");
 include_once("../persons/person.php");
 
 class Review {
-    //$id, $persons_id,
     private $id;
     private $persons_id;
     private $lessons_id;
@@ -64,9 +63,6 @@ class Review {
         $this->rating = $rating;
     }
 
-
-
-    //TODO: Make the reviewer able to remove/update there own review.
     public function to_table_row($persons_id) {
         //Get the person who made this review.
         $reviewer = PersonController::get_person_by_id($this->persons_id);
