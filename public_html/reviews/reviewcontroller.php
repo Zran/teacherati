@@ -54,6 +54,24 @@ class ReviewController {
         return $reviews;
     }
 
+    public static function update_review(Review $review){
+        $db = DBConnector::get_db_connection();
+        $sql = "UPDATE reviews SET title=?, review=?, rating=? WHERE id=?";
+
+        if (!$statement = $db->prepare($sql)) {
+            echo "Prepare failed: ($db->errno) $db->error";
+        }
+
+        $statement->bind_param("sssi", $review->title, $review->review, $review->rating, $review->id);
+
+        if (!$statement->execute()) {
+            echo "Execution of prepared statement failed: ($statement->errno) $statement->error";
+        }
+
+        $statement->close();
+        $db->close();
+    }
+
     public static function get_table_header(){
         return "<tr><th>ID</th><th>Reviewer</th><th>Title</th><th>Review</th><th>Date Submitted</th>" .
             "<th>Rating</th><th></th></tr>";

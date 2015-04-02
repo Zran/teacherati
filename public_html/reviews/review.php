@@ -40,6 +40,32 @@ class Review {
         $this->rating = $rating;
     }
 
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @param mixed $review
+     */
+    public function setReview($review)
+    {
+        $this->review = $review;
+    }
+
+    /**
+     * @param mixed $rating
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+    }
+
+
+
     //TODO: Make the reviewer able to remove/update there own review.
     public function to_table_row($persons_id) {
         //Get the person who made this review.

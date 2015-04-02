@@ -78,5 +78,4 @@ foreach ($reviews as $r) {
 //echo $table->get_final_page();
 echo $table->get_final_page();
 
-
 ?>
