@@ -48,6 +48,6 @@ class PersonController {
 
         $statement->close();
         $db->close();
-        return $person_id;
+        return $person;
     }
 }

@@ -3,14 +3,15 @@
 include_once("basetemplate.php");
 
 class TableTemplate extends BaseTemplate {
-    private $heading;
-    private $closeHeading;
-    private $tableTail;
-    private $formControls;
-    private $authenticated;
+    protected $heading;
+    protected $closeHeading;
+    protected $tableTail;
+    protected $formControls;
+    protected $footer;
+    protected $authenticated;
 
-    private $table_header;
-    private $table_data;
+    protected $table_header;
+    protected $table_data;
 
     public function __construct($page_title="Teacherati", $authenticated=false) {
         $this->authenticated = $authenticated;
@@ -32,7 +33,7 @@ class TableTemplate extends BaseTemplate {
         $this->tableTail="</tbody>
         </table>";
         $this->formControls="
-        <a class='btn btn-primary' href='add.php'>Add a Lesson</a>";
+        <a class='btn btn-primary' href='add.php'>Add New Entry</a>";
         $this->footer=parent::get_footer();
         $this->table_data = "";
     }
