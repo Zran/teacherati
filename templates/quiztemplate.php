@@ -11,21 +11,28 @@ class QuizTemplate {
     private $quiz_data;
     private $tail;
 
+    private $editable;
+    private $title;
+    private $id;
+
     private $question_number = 1;
 
     //TODO: Modify this to use basetemplate
-    public function __construct($quiz_name)
+    public function __construct(Quiz $quiz, $editable=false)
     {
+        $this->id = $quiz->id;
+        $this->title = $quiz->title;
+        $this->editable = $editable;
         $this->heading = "<!DOCTYPE html>
 <html>
 <head>
-	<title>Quiz - $quiz_name</title>
+	<title>Quiz - $this->title</title>
 	<meta http-equiv='content-type' content='text/html;charset=utf-8' />
     <link rel='stylesheet' type='text/css' href='https://bootswatch.com/cosmo/bootstrap.min.css'>
 </head>
 <body>
 	<div class='container'>
-		<h1>$quiz_name</h1>
+		<h1>$this->title</h1>
 		<hr>
 		<form action='../attempts/save.php'>";
         $this->tail = "<hr>
@@ -45,7 +52,7 @@ class QuizTemplate {
 					<div class='form-group'>";
         foreach ($options as $o) {
             $question_html = $question_html . "<label>
-							<input type='radio' name='question_{$question->id}_choice' id='$o->id' value='$o->id'>
+							<input type='radio' name='$question->id' id='$o->id' value='$o->id'>
 							 $o->option_text
 						</label>
 						</br>";
@@ -58,6 +65,18 @@ class QuizTemplate {
     }
 
     public function get_final_page() {
+        if ($this->editable) {
+            $this->tail = "<div class='row'><div class='col-md-3 col-md-offset-9'>
+                <a href=../questions/update.php?quiz_id=$this->id' class='btn btn-default'>Update</a>
+                <a href=../questions/add.php?quiz_id=$this->id' class='btn btn-primary'>Add Question</a>
+                </form>
+            </div>
+        </div>
+	</div>
+</body>
+</html";
+        }
+
         return $this->heading . $this->quiz_data . $this->tail;
     }
 }

@@ -7,7 +7,10 @@
  */
 
 include_once("quizcontroller.php");
+include_once("quiz.php");
 include_once("../questions/questioncontroller.php");
+include_once("../lessons/lessoncontroller.php");
+include_once("../lessons/lesson.php");
 include_once("../options/option.php");
 include_once("../options/optioncontroller.php");
 include_once("../../templates/quiztemplate.php");
@@ -35,15 +38,20 @@ if ( $lesson_id == null ) {
     header("Location: ../lessons/index.php");
 }
 
-$lesson_id = 2;
-
 //Get the quiz for this lesson.
 $quiz = QuizController::get_quiz_by_lesson_id($lesson_id);
 
-//TODO: Check if quiz even exist.
+$lesson = LessonController::get_lesson_by_id($lesson_id);
 
-//Start rendering the quiz page.
-$quiz_page = new QuizTemplate($quiz->title);
+//If the person tied to this lesson is the person logged in
+if ($persons_id = $lesson->persons_id) {
+    //Start rendering the quiz page with edit options
+    $quiz_page = new QuizTemplate($quiz, true);
+}
+else {
+    //Start rendering the quiz page.
+    $quiz_page = new QuizTemplate($quiz);
+}
 
 //Get an array of questions
 $questions = QuestionController::get_questions_by_quizzes_id($quiz->id);

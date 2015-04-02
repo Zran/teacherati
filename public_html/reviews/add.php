@@ -86,7 +86,7 @@ if ( !empty($_POST)) {
     //Add the review
     ReviewController::add_review($review);
 
-    //header("Location: ../lessons/index.php");
+    header("Location: ../lessons/index.php");
 }
 else {
     $persons_id = $_SESSION['persons_id'];
