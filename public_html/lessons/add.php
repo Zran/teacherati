@@ -62,7 +62,7 @@ class AddLesson extends BaseTemplate {
 						<label for='resources' class='col-lg-2 control-label'>Resources</label>
 						<div class='col-lg-10'>
 							<textarea class='form-control' rows='5' name='resources' id='resources'></textarea>
-							<span class='help-block'>Any material relevant to the lesson, such as lecture notes, or links to videos.
+							<span class='help-block'>Any material relevant to the lesson, such as lecture notes, or links to videos.</span>
 						</div>
 					</div>
 					<div class='form-group'>
