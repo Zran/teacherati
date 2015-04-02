@@ -3,24 +3,25 @@
  * Created by IntelliJ IDEA.
  * User: brad
  * Date: 4/1/15
- * Time: 11:18 AM
+ * Time: 11:25 PM
  */
-include_once("lesson.php");
-include_once("lessoncontroller.php");
+
+include_once("review.php");
+include_once("reviewcontroller.php");
 include_once("../../templates/basetemplate.php");
 
-class DeleteLesson extends BaseTemplate {
+class DeleteReview extends BaseTemplate {
     private $header;
     private $footer;
 
     private $title;
     private $id;
 
-    public function __construct(Lesson $lesson) {
-        $this->title = $lesson->title;
-        $this->id = $lesson->id;
+    public function __construct(Review $review) {
+        $this->title = $review->title;
+        $this->id = $review->id;
 
-        $this->header = parent::get_header("Delete Lesson?");
+        $this->header = parent::get_header("Delete Review?");
         $this->footer = parent::get_footer();
     }
 
@@ -34,10 +35,10 @@ class DeleteLesson extends BaseTemplate {
 
     <form class=\"form-horizontal\" action=\"delete.php\" method=\"post\">
       <input type=\"hidden\" name=\"id\" value=\"$this->id\"/>
-      <p class=\"alert alert-error\">Are you sure to delete this lessons, and all content associated with it?</p>
+      <p class=\"alert alert-error\">Are you sure to delete your review?</p>
       <div class=\"form-actions\">
           <button type=\"submit\" class=\"btn btn-danger\">Yes</button>
-          <a class=\"btn\" href=\"index.php\">No</a>
+          <a class=\"btn\" href=\"../lessons/index.php\">No</a>
         </div>
     </form>
 </div>" . $this->footer;
@@ -46,7 +47,7 @@ class DeleteLesson extends BaseTemplate {
 
 session_start();
 
-//TODO: Only work for teachers.
+//TODO: Only work for the original reviewer.
 
 //Check if person is logged in.
 if (!isset($_SESSION['persons_id'])) {
@@ -67,22 +68,21 @@ if (empty($_POST)) {
         header("Location: index.php");
     }
 
-    $lesson = LessonController::get_lesson_by_id($id);
+    $review = ReviewController::get_review_by_id($id);
 
-    if ($lesson->id != 0) {
-        $delete_lesson = new DeleteLesson($lesson);
-        echo $delete_lesson->get_final_page();
+    if ($review->id != 0) {
+        $delete_review = new DeleteReview($review);
+        echo $delete_review->get_final_page();
     }
     else {
         echo "No lesson found with this ID.";
     }
 }
 else {
-    $lesson = LessonController::get_lesson_by_id($_POST['id']);
+    $review = ReviewController::get_review_by_id($_POST['id']);
 
-    if ($lesson->id != 0) {
-        LessonController::delete_lesson($lesson->id);
+    if ($review->id != 0) {
+        ReviewController::delete_review($review->id);
     }
-    header("Location: index.php");
+    header("Location: ../lessons/index.php");
 }
-?>

@@ -72,6 +72,11 @@ class ReviewController {
         $db->close();
     }
 
+    public static function delete_review($review_id) {
+        $sql = "DELETE FROM reviews WHERE id=?";
+        SQLAction::delete_by_id_query($sql, $review_id);
+    }
+
     public static function get_table_header(){
         return "<tr><th>ID</th><th>Reviewer</th><th>Title</th><th>Review</th><th>Date Submitted</th>" .
             "<th>Rating</th><th></th></tr>";

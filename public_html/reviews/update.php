@@ -95,7 +95,7 @@ if ( !empty($_POST)) {
     $review->setRating($_POST['rating']);
     $review->setReview($_POST['review']);
     $review->setTitle($_POST['title']);
-    
+
     ReviewController::update_review($review);
 
     header("Location: ../lessons/index.php");
