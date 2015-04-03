@@ -78,7 +78,7 @@ class ViewLesson extends BaseTemplate {
             </div>
             <div class='col-md-3 col-md-offset-7'>
                 <a href='../reviews/view.php?lesson_id=$this->id' class='btn btn-default'>Reviews</a>
-                <a href='../quizzes/take.php?lesson_id=$this->id' class='btn btn-primary'>Take Quiz</a>
+                <a href='../quizzes/take.php?lesson_id=$this->id' class='btn btn-primary'>Quiz</a>
             </div>
         </div>" . $this->footer;
     }

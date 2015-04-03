@@ -44,6 +44,7 @@ $question_id = QuestionController::add_question($question);
 
 //TODO: Make less janky
 //TODO: Figure out correct option
+//TODO: Authenticate this page
 //Check if they filled in an option and save it if they did.
 if ($_GET['option1'] != '') {
     $o = new Option($question_id, $_GET['option1'], 0);

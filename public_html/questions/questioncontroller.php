@@ -21,7 +21,7 @@ class QuestionController {
 
         $statement->fetch();
 
-        $question = new Question($quizzes_id, $questions_id, $id);
+        $question = new Question($quizzes_id, $question, $id);
 
         return $question;
     }
@@ -68,5 +68,15 @@ class QuestionController {
         $db->close();
 
         return $questions_id;
+    }
+
+    public static function delete_question($questions_id){
+        $sql = "DELETE FROM questions WHERE id=?";
+
+        SQLAction::delete_by_id_query($sql, $questions_id);
+    }
+
+    public static function get_table_header() {
+        return "<tr><th>Question</th><th>Actions</th></tr>";
     }
 }

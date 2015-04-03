@@ -26,4 +26,9 @@ class Question {
     public function __get($name) {
         return $this->$name;
     }
+
+    public function get_table_row(){
+        return "<tr><td>$this->question</td><td><a href='../questions/delete.php?id=$this->id' class='btn btn-danger'>" .
+            "Delete</a><a href='update.php?id=$this->id' class='btn btn-primary'>Update</a></td></tr>";
+    }
 }
