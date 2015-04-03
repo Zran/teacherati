@@ -25,36 +25,4 @@ class DBConnector {
 
 }
 
-/*$db = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
-
-if ($db->connect_error) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-if ($db) {
-    echo "Connected.<br/>";
-
-    $sql = "SELECT id, role, first_name FROM persons LIMIT 0, 30;";
-    //$sql = "show tables;";
-    $result = $db->query($sql);
-
-    echo '<pre>';
-    var_dump($db);
-    echo '</pre>';
-
-    echo '<pre>';
-    var_dump($result);
-    echo '</pre>';
-
-    //echo $result->fetch_all();
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo $row['id'] . ":id " . $row['role'] . " " . $row['first_name'];
-        }
-    }
-    else {
-        echo "0 results! <br/>";
-    }
-}*/
-
 ?>
