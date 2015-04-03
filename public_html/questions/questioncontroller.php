@@ -45,4 +45,28 @@ class QuestionController {
 
         return $questions;
     }
+
+    public static function add_question(Question $question) {
+        $db = DBConnector::get_db_connection();
+        $sql = "INSERT INTO questions (quizzes_id, question) VALUES (?, ?)";
+
+        if (!$statement = $db->prepare($sql)) {
+            echo "Prepare failed: ($db->errno) $db->error";
+        }
+
+        $statement->bind_param("is", $question->quizzes_id, $question->question);
+
+        //Run query
+        if (!$statement->execute()) {
+            echo "Execution of prepared statement failed: ($statement->errno) $statement->error";
+        }
+
+        //Get the auto-created ID
+        $questions_id = $db->insert_id;
+
+        $statement->close();
+        $db->close();
+
+        return $questions_id;
+    }
 }

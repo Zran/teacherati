@@ -15,6 +15,7 @@ class ViewLesson extends BaseTemplate {
     private $header;
     private $footer;
 
+    private $title;
     private $subject;
     private $description;
     private $date_created;
@@ -30,6 +31,7 @@ class ViewLesson extends BaseTemplate {
 
         $this->footer = parent::get_footer();
 
+        $this->title = $lesson->title;
         $this->subject = $lesson->subject;
         $this->description = $lesson->description;
         $this->date_created = $lesson->date_created;
@@ -41,7 +43,7 @@ class ViewLesson extends BaseTemplate {
     {
         return $this->header .
         "<div class='row'>
-            <h2>Lesson Title</h2>
+            <h2>$this->title</h2>
         </div>
 
         <div class='row'>

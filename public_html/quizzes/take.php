@@ -17,6 +17,8 @@ include_once("../../templates/quiztemplate.php");
 
 //TODO: Add attempts logic to make sure a user only took it the allow number of times
 
+//TODO: Check if a quiz exist for this lesson, and create one if it doesn't.
+
 //Check if the user is logged in
 session_start();
 

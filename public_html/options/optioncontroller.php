@@ -48,4 +48,25 @@ class OptionController {
 
         return $options;
     }
+
+    //Do not define this one as taking class type Option so it doesn't blow up!
+    //Kablam!!!*($%*(RGU VW$TUIDF)***
+    public static function add_option($o) {
+        $db = DBConnector::get_db_connection();
+        $sql = "INSERT INTO options (question_id, `option_text`, correct_option) VALUES (?, ?, ?)";
+
+        if (!$statement = $db->prepare($sql)) {
+            echo "Prepare failed: ($db->errno) $db->error";
+        }
+
+        $statement->bind_param("iss", $o->question_id, $o->option_text, $o->correct_option);
+
+        //Run query
+        if (!$statement->execute()) {
+            echo "Execution of prepared statement failed: ($statement->errno) $statement->error";
+        }
+
+        $statement->close();
+        $db->close();
+    }
 }
