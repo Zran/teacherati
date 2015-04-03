@@ -46,4 +46,25 @@ class QuizController {
 
         return $quiz;
     }
+
+    public static function add_quiz(Quiz $quiz) {
+        $db = DBConnector::get_db_connection();
+        $sql = "INSERT INTO quizzes (lessons_id, attempts_allowed, title, description) VALUES (?, ?, ?, ?)";
+
+        if (!$statement = $db->prepare($sql)) {
+            echo "Prepare failed: ($db->errno) $db->error";
+        }
+
+        $statement->bind_param("iiss", $quiz->lessons_id, $quiz->attempts_allowed, $quiz->title, $quiz->description);
+
+        //Run query
+        if (!$statement->execute()) {
+            echo "Execution of prepared statement failed: ($statement->errno) $statement->error";
+        }
+
+        $statement->close();
+        $db->close();
+
+        return;
+    }
 }

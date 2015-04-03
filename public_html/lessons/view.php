@@ -9,6 +9,7 @@
 include_once("lesson.php");
 include_once("lessoncontroller.php");
 include_once("../persons/person.php");
+include_once("../persons/personcontroller.php");
 include_once("../../templates/basetemplate.php");
 
 class ViewLesson extends BaseTemplate {
@@ -19,6 +20,7 @@ class ViewLesson extends BaseTemplate {
     private $subject;
     private $description;
     private $date_created;
+    private $author;
     private $resources;
     private $id;
 
@@ -30,6 +32,9 @@ class ViewLesson extends BaseTemplate {
         $this->header = parent::get_header($lesson->title);
 
         $this->footer = parent::get_footer();
+
+        $person = PersonController::get_person_by_id($lesson->persons_id);
+        $this->author = $person->first_name . " " . $person->last_name;
 
         $this->title = $lesson->title;
         $this->subject = $lesson->subject;
@@ -57,9 +62,13 @@ class ViewLesson extends BaseTemplate {
             </div>
         </div>
         <div class='row'>
-            <div class='col-md-12'>
+            <div class='col-md-10'>
                 <label for='description'>Description</label>
                 <p id='subject'>$this->description</p>
+            </div>
+            <div class='col-md-2'>
+                <label for='date'>Author</label>
+                <p id='date'>$this->author</p>
             </div>
         </div>
         <div class='row'>

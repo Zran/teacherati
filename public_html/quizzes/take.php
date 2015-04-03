@@ -19,9 +19,10 @@ include_once("../../templates/quiztemplate.php");
 
 //TODO: Check if a quiz exist for this lesson, and create one if it doesn't.
 
-//Check if the user is logged in
+
 session_start();
 
+//Check if the user is logged in
 $authenticated = false;
 $persons_id = 0;
 if (isset($_SESSION['persons_id'])) {
@@ -47,10 +48,19 @@ $lesson = LessonController::get_lesson_by_id($lesson_id);
 
 //If the person tied to this lesson is the person logged in
 if ($persons_id == $lesson->persons_id) {
+    //If no quiz exist yet
+    if ($quiz->id == 0) {
+        header("Location: ../quizzes/add.php?lesson_id=$lesson->id");
+    }
+
     //Start rendering the quiz page with edit options
     $quiz_page = new QuizTemplate($quiz, true);
 }
 else {
+    //If no quiz exist yet
+    if ($quiz->id == 0) {
+        echo "No quiz found, yet!";
+    }
     //Start rendering the quiz page.
     $quiz_page = new QuizTemplate($quiz);
 }

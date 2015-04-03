@@ -100,14 +100,14 @@ if (!isset($_SESSION['persons_id'])) {
 	header("Location: ../login.php");
 }
 
-//Get the lesson_id
+//Get the quiz_id
 $quiz_id = null;
 if ( !empty($_GET['quiz_id'])) {
 	$quiz_id = $_REQUEST['quiz_id'];
 }
 
 if (($quiz_id == 0) or ($quiz_id == null)) {
-	echo 'Not a valide quiz id.';
+	echo 'Not a valid quiz id.';
 	//header("Location: ../lessons/index.php");
 }
 
@@ -116,7 +116,7 @@ $quiz = QuizController::get_quiz_by_id($quiz_id);
 $lesson = LessonController::get_lesson_by_id($quiz->lessons_id);
 
 //TODO: 401 error
-if ($lesson->id != $_SESSION['persons_id']) {
+if ($lesson->persons_id != $_SESSION['persons_id']) {
 	echo 'Not authorized!';
 	//header("Location: ../lessons/index.php");
 }
