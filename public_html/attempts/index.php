@@ -6,22 +6,33 @@
  * Time: 3:41 PM
  */
 include_once("attempt.php");
+include_once("attemptcontroller.php");
 include_once("../../templates/tabletemplate.php");
 
-/*
 session_start();
 
-if (!isset($_SESSION['email'])) {
+//The id of the review to update
+$id = null;
+if ( !empty($_GET['quiz_id'])) {
+    $id = $_REQUEST['quiz_id'];
+}
+
+//If no ID set, just reroute them back to list
+if ( $id == null ) {
+    $attempts = AttemptController::get_all_attempts();
+}
+else {
+    $attempts = AttemptController::get_attempt_by_quiz($id);
+}
+
+if (!isset($_SESSION['persons_id'])) {
     $_SESSION['CALLING_PAGE'] = $_SERVER['REQUEST_URI'];
-    header("Location: /~bswhitf1/login.php");
+    header("Location: ../login.php");
     exit;
 }
-*/
 
 $table = new TableTemplate("Attempts");
-$table->set_table_header(Attempt::get_table_header());
-
-$attempts = Attempt::get_attempt_by_quiz(3);
+$table->set_table_header(AttemptController::get_table_header());
 
 foreach ($attempts as $a) {
     $table->add_table_data($a->to_table_row());

@@ -84,7 +84,7 @@ if ( !empty($_GET['id'])) {
 }
 
 //If no ID set, just reroute them back to list
-if ( null==$id ) {
+if ( $id == null ) {
     header("Location: ..lessons/index.php");
 }
 
