@@ -14,8 +14,8 @@ include_once("quizcontroller.php");
 include_once("quiz.php");
 include_once("../../templates/tabletemplate.php");
 
-class UpdateQuestion extends TableTemplate {
-    
+class UpdateQuestionsTable extends TableTemplate {
+
     /**
      * UpdateQuestion constructor.
      */
@@ -58,7 +58,7 @@ if ($lesson->id != $_SESSION['persons_id']) {
 }
 else {
 
-    $table = new UpdateQuestion("Update " . $quiz->title, true, $quiz->id);
+    $table = new UpdateQuestionsTable("Update " . $quiz->title, true, $quiz->id);
     $table->set_table_header(QuestionController::get_table_header());
 
     $questions = QuestionController::get_questions_by_quizzes_id($quiz->id);

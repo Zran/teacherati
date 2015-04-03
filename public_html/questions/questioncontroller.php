@@ -70,6 +70,26 @@ class QuestionController {
         return $questions_id;
     }
 
+    public static function update_question(Question $question) {
+        $db = DBConnector::get_db_connection();
+        $sql = "UPDATE questions SET question=? WHERE id=?";
+
+        if (!$statement = $db->prepare($sql)) {
+            echo "Prepare failed: ($db->errno) $db->error";
+        }
+
+        //Bind the parameters to the insert statement
+        $statement->bind_param("si", $question->question, $question->id);
+
+        //Run query
+        if (!$statement->execute()) {
+            echo "Execution of prepared statement failed: ($statement->errno) $statement->error";
+        }
+
+        $statement->close();
+        $db->close();
+    }
+
     public static function delete_question($questions_id){
         $sql = "DELETE FROM questions WHERE id=?";
 
