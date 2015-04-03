@@ -10,9 +10,9 @@ include_once("../../templates/tabletemplate.php");
 
 session_start();
 
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['persons_id'])) {
     $_SESSION['CALLING_PAGE'] = $_SERVER['REQUEST_URI'];
-    header("Location: /~bswhitf1/login.php");
+    header("Location: /../login.php");
     exit;
 }
 

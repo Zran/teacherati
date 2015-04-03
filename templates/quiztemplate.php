@@ -6,10 +6,12 @@
  * Time: 3:55 PM
  */
 
-class QuizTemplate {
+include_once("../../templates/basetemplate.php");
+
+class QuizTemplate extends BaseTemplate {
     private $heading;
     private $quiz_data;
-    private $tail;
+    private $footer;
 
     private $editable;
     private $title;
@@ -23,33 +25,22 @@ class QuizTemplate {
         $this->id = $quiz->id;
         $this->title = $quiz->title;
         $this->editable = $editable;
-        $this->heading = "<!DOCTYPE html>
-<html>
-<head>
-	<title>Quiz - $this->title</title>
-	<meta http-equiv='content-type' content='text/html;charset=utf-8' />
-    <link rel='stylesheet' type='text/css' href='https://bootswatch.com/cosmo/bootstrap.min.css'>
-</head>
-<body>
-	<div class='container'>
-		<h1>$this->title</h1>
+        $this->heading = parent::get_header("Quiz - $this->title") .
+		"<h1>$this->title</h1>
 		<hr>
-		<form action='../attempts/save.php'>";
-        $this->tail = "<hr>
+		<form action='../attempts/save.php' method='post'>";
+        $this->footer = "<hr>
 			<button type='submit' class='btn btn-primary' style='float:right;'>Submit</button>
-		</form>
-	</div>
-</body>
-</html>";
+		</form>" . parent::get_footer();
     }
 
     public function add_question($question, $options) {
-        //TODO: Figure out the question->body
         $question_text = $this->question_number . ") " . $question->question;
         $question_html = "<div class='row'>
 				<div class='col-md-8 col-md-offset-2'>
 					<legend>$question_text</legend>
-					<div class='form-group'>";
+					<div class='form-group'>
+					<input type=\"hidden\" name=\"quiz_id\" value=\"$this->id\"/>";
         foreach ($options as $o) {
             $question_html = $question_html . "<label>
 							<input type='radio' name='$question->id' id='$o->id' value='$o->id'>
@@ -66,7 +57,7 @@ class QuizTemplate {
 
     public function get_final_page() {
         if ($this->editable) {
-            $this->tail = "<div class='row'><div class='col-md-4 col-md-offset-8'>
+            $this->footer = "<div class='row'><div class='col-md-4 col-md-offset-8'>
                 <a href='../attempts/index.php?quiz_id=$this->id' class='btn btn-default'>View Attempts</a>
                 <a href='../quizzes/update.php?quiz_id=$this->id' class='btn btn-default'>Update</a>
                 <a href='../questions/add.php?quiz_id=$this->id' class='btn btn-primary'>Add Question</a>
@@ -78,6 +69,6 @@ class QuizTemplate {
 </html";
         }
 
-        return $this->heading . $this->quiz_data . $this->tail;
+        return $this->heading . $this->quiz_data . $this->footer;
     }
 }

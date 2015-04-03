@@ -6,6 +6,7 @@
  * Time: 1:49 PM
  */
 include_once("../../mysqlconnector.php");
+include_once("../../templates/sqlaction.php");
 include_once("attempt.php");
 
 class AttemptController {
@@ -27,8 +28,12 @@ class AttemptController {
             echo "Execution of prepared statement failed: ($statement->errno) $statement->error";
         }
 
+        $attempt_id = $db->insert_id;
+
         $statement->close();
         $db->close();
+
+        return $attempt_id;
     }
 
     public static function update_attempt(Attempt $attempt) {
@@ -93,6 +98,31 @@ class AttemptController {
         $statement = SQLAction::get_by_id_query($db, $sql, $person_id);
 
         return AttemptController::get_array_of_attempts($statement, $db);
+    }
+
+    public static function get_attempt_count_by_person($persons_id, $quiz_id) {
+        $db = DBConnector::get_db_connection();
+        $sql = "SELECT COUNT(*) FROM attempts WHERE persons_id=? AND quizzes_id = ?";
+
+        if (!$statement = $db->prepare($sql)) {
+            echo "Prepare failed: ($db->errno) $db->error";
+        }
+
+        $statement->bind_param("ii", $persons_id, $quiz_id);
+
+        if (!$statement->execute()) {
+            echo "Execution of prepared statement failed: ($statement->errno) $statement->error";
+        }
+
+        $statement->bind_result($count);
+
+        $statement->fetch();
+
+        $statement->close();
+        $db->close();
+
+        return $count;
+
     }
 
     public static function get_attempt_by_quiz($quiz_id) {

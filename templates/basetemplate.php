@@ -9,7 +9,10 @@
 abstract class BaseTemplate {
 
     protected function get_footer() {
-        return "</div>
+        return "<footer><br/>
+            Contents © 2015 Amber Team - 04
+        </footer>
+	</div>
 </body>
 </html>";
     }
