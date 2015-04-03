@@ -16,17 +16,9 @@ class TableTemplate extends BaseTemplate {
     public function __construct($page_title="Teacherati", $authenticated=false) {
         $this->authenticated = $authenticated;
 
-        if (!$this->authenticated) {
-            $this->heading = parent::get_header($page_title) . "
-        <a class='btn btn-success' href='../login.php'>Log In</a>
+        $this->heading = parent::get_header($page_title) . "
         <table class='table table-striped table-hover'>
             <thead>";
-        }
-        else {
-            $this->heading = parent::get_header($page_title) . "
-        <table class='table table-striped table-hover'>
-            <thead>";
-        }
 
         $this->closeHeading="</thead>
             <tbody>";

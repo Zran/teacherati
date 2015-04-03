@@ -34,6 +34,9 @@ if(isset($_POST['sub'])){
     $statement->bind_result($id);
     $statement->fetch();
 
+    $statement->close();
+    $db->close();
+
     if ($id != 0) {
         $_SESSION['persons_id'] = $id;
         if (isset($_SESSION['CALLING_PAGE'])) {
@@ -49,9 +52,11 @@ if(isset($_POST['sub'])){
     else {
         $loginError = "Incorrect login!";
     }
+}
 
-    $statement->close();
-    $db->close();
+//If they deliberately went to the login page, allow them to log in as someone else.
+if (isset($_SESSION['persons_id'])) {
+    unset($_SESSION['persons_id']);
 }
 echo "
 <!DOCTYPE html>
