@@ -67,8 +67,8 @@ class QuizTemplate {
     public function get_final_page() {
         if ($this->editable) {
             $this->tail = "<div class='row'><div class='col-md-3 col-md-offset-9'>
-                <a href=../questions/update.php?quiz_id=$this->id' class='btn btn-default'>Update</a>
-                <a href=../questions/add.php?quiz_id=$this->id' class='btn btn-primary'>Add Question</a>
+                <a href='../questions/update.php?quiz_id=$this->id' class='btn btn-default'>Update</a>
+                <a href='../questions/add.php?quiz_id=$this->id' class='btn btn-primary'>Add Question</a>
                 </form>
             </div>
         </div>

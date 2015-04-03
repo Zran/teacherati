@@ -44,7 +44,7 @@ $quiz = QuizController::get_quiz_by_lesson_id($lesson_id);
 $lesson = LessonController::get_lesson_by_id($lesson_id);
 
 //If the person tied to this lesson is the person logged in
-if ($persons_id = $lesson->persons_id) {
+if ($persons_id == $lesson->persons_id) {
     //Start rendering the quiz page with edit options
     $quiz_page = new QuizTemplate($quiz, true);
 }
